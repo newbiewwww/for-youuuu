@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Untuk Kamu</title>
+
+<style>
+body {
+    margin:0;
+    background: #ffffff; /* putih */
+    color:black; /* teks jadi hitam biar keliatan */
+    text-align:center;
+    font-family: 'Segoe UI', sans-serif;
+    overflow:hidden;
+}
+
+.container {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* tombol */
+button {
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:20px;
+    background:#ffd60a;
+    color:black;
+    cursor:pointer;
+}
+
+/* Nailong */
+#nailong {
+    width:220px; /* lebih besar */
+    margin-bottom:20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% {transform: translateY(0);}
+    50% {transform: translateY(-15px);}
+}
+
+/* typing */
+#text {
+    font-size:20px;
+    margin-top:20px;
+    min-height:60px;
+}
+
+/* heart background */
+.heart {
+    position:absolute;
+    color:red;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {transform: translateY(-100px);}
+    100% {transform: translateY(100vh);}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ❤️ hearts -->
+<script>
+for(let i=0;i<25;i++){
+    let h=document.createElement("div");
+    h.innerHTML="❤️";
+    h.className="heart";
+    h.style.left=Math.random()*100+"%";
+    h.style.animationDuration=(3+Math.random()*5)+"s";
+    document.body.appendChild(h);
+}
+</script>
+
+<div class="container">
+
+    <!-- Nailong -->
+    <img src="nailong.png" id="nailong">
+
+    <!-- Text -->
+    <div id="text"></div>
+
+    <!-- Button -->
+    <button onclick="start()">Mulai</button>
+
+</div>
+
+<!-- musik (opsional) -->
+<audio id="music" loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let messages = [
+"Hai...",
+"Aku cuma Nailong...",
+"Tapi aku disuruh seseorang buat nyampein ini ke kamu...",
+"Katanya...",
+"kamuuu orang paling cantikk dan paling baik yang pernah ia temui...",
+"Jadi dia pengen kamu jangan insecure teruss yahh...",
+"Dan katanya makasih yaa udah ngisi hari-hari nya menjadi lebih berwarna...",
+"Diaaaa ingin sekali menjadi pasangan mu untuk 5 tahun kedepan...",
+"Dia bakal kangen kamu ketika sudah pkl :)",
+"",
+"Terima kasih ya sekali lagi karna kamu sudah datang kehidup dia..."
+];
+
+let i = 0;
+let j = 0;
+let currentText = "";
+let isDeleting = false;
+
+function start(){
+    document.querySelector("button").style.display="none";
+    document.getElementById("music").play();
+    typeEffect();
+}
+
+function typeEffect(){
+    let text = messages[i];
+
+    if(j < text.length){
+        currentText += text.charAt(j);
+        document.getElementById("text").innerHTML = currentText;
+        j++;
+        setTimeout(typeEffect, 50);
+    } else {
+        setTimeout(()=>{
+            currentText="";
+            j=0;
+            i++;
+            if(i < messages.length){
+                typeEffect();
+            } else {
+                document.getElementById("text").innerHTML += "<br><br>- dari N :)";
+            }
+        },1500);
+    }
+}
+</script>
+
+</body>
+</html>
